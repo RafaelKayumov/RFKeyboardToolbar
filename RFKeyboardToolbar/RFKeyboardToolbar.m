@@ -24,7 +24,7 @@
 }
 
 - (id)initWithButtons:(NSArray*)buttons {
-    self = [super initWithFrame:CGRectMake(0, 0, self.window.rootViewController.view.bounds.size.width, 40)];
+    self = [super initWithFrame:CGRectMake(0, 0, self.window.rootViewController.view.bounds.size.width, 48)];
     if (self) {
         _buttonsToAdd = buttons;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -41,13 +41,18 @@
 }
 
 - (UIView*)inputAccessoryView {
-    _toolbarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 40)];
-    _toolbarView.backgroundColor = [UIColor colorWithWhite:0.973 alpha:1.0];
+    _toolbarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 48)];
+    
+    NSString *version = [[UIDevice currentDevice] systemVersion];
+    _toolbarView.backgroundColor = version.floatValue >= 7.0f ? [UIColor colorWithRed:210.0f/256.0f green:213.0f/256.0f blue:219.0f/256.0f alpha:1.0f] :
+                                                                [UIColor colorWithRed:143.0f/256.0f green:151.0f/256.0f blue:162.0f/256.0f alpha:1.0f];
+    
     _toolbarView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     
     _topBorder = [CALayer layer];
     _topBorder.frame = CGRectMake(0.0f, 0.0f, self.bounds.size.width, 0.5f);
-    _topBorder.backgroundColor = [UIColor colorWithWhite:0.678 alpha:1.0].CGColor;
+    _topBorder.backgroundColor = version.floatValue >= 7.0f ? [UIColor colorWithWhite:0.678 alpha:1.0].CGColor :
+                                                              [UIColor colorWithWhite:0.378 alpha:1.0].CGColor;
     
     [_toolbarView.layer addSublayer:_topBorder];
     [_toolbarView addSubview:[self fakeToolbar]];
@@ -56,14 +61,14 @@
 }
 
 - (UIScrollView*)fakeToolbar {
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 40)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 48)];
     _scrollView.backgroundColor = [UIColor clearColor];
     _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.contentInset = UIEdgeInsetsMake(6.0f, 0.0f, 8.0f, 6.0f);
     
     NSUInteger index = 0;
-    NSUInteger originX = 8;
+    NSUInteger originX = [[UIDevice currentDevice] systemVersion].floatValue >= 7.0f ? 3 : 2;
     
     CGRect originFrame;
     

@@ -26,7 +26,7 @@
     
     _textView = [[UITextView alloc] initWithFrame:self.view.bounds];
     
-    RFToolbarButton *exampleButton = [RFToolbarButton buttonWithTitle:@"Example"];
+    RFToolbarButton *exampleButton = [RFToolbarButton buttonWithTitle:@"lol"];
     
     [exampleButton addEventHandler:^{
         [_textView insertText:@"You pressed a button!"];

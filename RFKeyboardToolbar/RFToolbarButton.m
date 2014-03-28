@@ -27,21 +27,27 @@
 
 - (id)init
 {
-    CGSize sizeOfText = [self.title sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14.f]}];
+    NSString *version = [[UIDevice currentDevice] systemVersion];
+    UIFont *font = version.floatValue >= 7.0f ? [UIFont fontWithName:@"Helvetica-Light" size:28.0f] :
+                                                [UIFont fontWithName:@"HelveticaNeue-Medium" size:26.0f];
+    CGSize sizeOfText = version.floatValue >= 7.0f ? [self.title sizeWithAttributes:@{NSFontAttributeName:font}] :
+                                                     [self.title sizeWithFont:font];
+   
+    UIImage *image = version.floatValue >= 7.0f ? [UIImage imageNamed:@"keyboard_button_iOS7.png"] : [UIImage imageNamed:@"keyboard_button_iOS6.png"];
+    CGFloat inset = version.floatValue >= 7.0f ? 3 : 5;
+    UIImage *buttonImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0, inset, 0, inset)];
     
-    self = [super initWithFrame:CGRectMake(0, 0, sizeOfText.width + 18.104, sizeOfText.height + 10.298)];
+    self = [super initWithFrame:CGRectMake(0, 0, sizeOfText.width > buttonImage.size.width ? sizeOfText.width + 3 : buttonImage.size.width, buttonImage.size.height)];
     if (self) {
-        self.backgroundColor = [UIColor colorWithWhite:0.902 alpha:1.0];
-        
-        self.layer.cornerRadius = 3.0f;
-        self.layer.borderWidth = 1.0f;
-        self.layer.borderColor = [UIColor colorWithWhite:0.8 alpha:1.0].CGColor;
-        
         [self setTitle:self.title forState:UIControlStateNormal];
-        [self setTitleColor:[UIColor colorWithWhite:0.500 alpha:1.0] forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
-        self.titleLabel.font = [UIFont boldSystemFontOfSize:14.f];
+        self.titleLabel.font = font;
         self.titleLabel.textColor = [UIColor colorWithWhite:0.500 alpha:1.0];
+        
+        self.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 4, 0);
+        
+        [self setBackgroundImage:buttonImage forState:UIControlStateNormal];
     }
     return self;
 }
