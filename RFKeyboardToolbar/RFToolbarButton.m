@@ -48,6 +48,8 @@
         self.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 4, 0);
         
         [self setBackgroundImage:buttonImage forState:UIControlStateNormal];
+        
+        [self addTarget:self action:@selector(playTapSound) forControlEvents:UIControlEventTouchDown];
     }
     return self;
 }
@@ -57,8 +59,16 @@
     [self addTarget:self action:@selector(buttonPressed) forControlEvents:controlEvent];
 }
 
+- (void)playTapSound {
+    [[UIDevice currentDevice] playInputClick];
+}
+
 - (void)buttonPressed {
     self.buttonPressBlock();
+}
+
+- (BOOL)enableInputClicksWhenVisible {
+    return YES;
 }
 
 @end

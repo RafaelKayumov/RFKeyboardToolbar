@@ -9,6 +9,8 @@
 
 @interface RFKeyboardToolbar : UIView
 
+@property (nonatomic, assign) BOOL tapSoundEnabled;
+
 + (instancetype)toolbarViewWithButtons:(NSArray *)buttons;
 
 @end

@@ -8,7 +8,7 @@
 #import "RFKeyboardToolbar.h"
 #import "RFToolbarButton.h"
 
-@interface RFKeyboardToolbar ()
+@interface RFKeyboardToolbar () <UIInputViewAudioFeedback>
 
 @property (nonatomic,strong) UIView *toolbarView;
 @property (nonatomic,strong) UIScrollView *scrollView;
@@ -87,6 +87,10 @@
     _scrollView.contentSize = contentSize;
     
     return _scrollView;
+}
+
+- (BOOL)enableInputClicksWhenVisible {
+    return self.tapSoundEnabled;
 }
 
 @end

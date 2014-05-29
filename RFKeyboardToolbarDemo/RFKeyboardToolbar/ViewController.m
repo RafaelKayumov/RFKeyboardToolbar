@@ -32,7 +32,9 @@
         [_textView insertText:@"You pressed a button!"];
     } forControlEvents:UIControlEventTouchUpInside];
     
-    _textView.inputAccessoryView = [RFKeyboardToolbar toolbarViewWithButtons:@[exampleButton]];
+    RFKeyboardToolbar *toolbar = [RFKeyboardToolbar toolbarViewWithButtons:@[exampleButton]];
+    toolbar.tapSoundEnabled = YES;
+    _textView.inputAccessoryView = toolbar;
         
     [self.view addSubview:_textView];
 }
