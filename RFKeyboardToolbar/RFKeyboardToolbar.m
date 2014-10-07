@@ -68,7 +68,7 @@
     _scrollView.contentInset = UIEdgeInsetsMake(6.0f, 0.0f, 8.0f, 6.0f);
     
     NSUInteger index = 0;
-    NSUInteger originX = [[UIDevice currentDevice] systemVersion].floatValue >= 7.0f ? 3 : 2;
+    NSUInteger originX = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 3 : 7;
     
     CGRect originFrame;
     
@@ -78,7 +78,8 @@
         
         [_scrollView addSubview:eachButton];
         
-        originX = originX + eachButton.bounds.size.width + 8;
+        CGFloat gap = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? 8.0 : 15.0;
+        originX = originX + eachButton.bounds.size.width + gap;
         index++;
     }
     

@@ -37,7 +37,14 @@
     CGFloat inset = version.floatValue >= 7.0f ? 3 : 5;
     UIImage *buttonImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0, inset, 0, inset)];
     
-    self = [super initWithFrame:CGRectMake(0, 0, sizeOfText.width > buttonImage.size.width ? sizeOfText.width + 3 : buttonImage.size.width, buttonImage.size.height)];
+    CGRect frame;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        frame = CGRectMake(0, 0, sizeOfText.width > buttonImage.size.width ? sizeOfText.width + 3 : buttonImage.size.width, buttonImage.size.height);
+    } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        frame = CGRectMake(0, 0, 66, buttonImage.size.height);
+    }
+    
+    self = [super initWithFrame:frame];
     if (self) {
         [self setTitle:self.title forState:UIControlStateNormal];
         [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
